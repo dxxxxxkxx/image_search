@@ -16,6 +16,21 @@ class _MainScreenState extends State<MainScreen> {
 
   _MainScreenState() : _viewModel = MainScreenViewModel();
 
+  GridView _buildGridView() => GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 32.0,
+          mainAxisSpacing: 32.0,
+        ),
+        itemCount: _viewModel.images.length,
+        itemBuilder: (context, index) => ClipRRect(
+          borderRadius: BorderRadius.circular(24.0),
+          child: Image.network(
+              _viewModel.images[index].toImageItem().previewUrl,
+              fit: BoxFit.cover),
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,32 +45,17 @@ class _MainScreenState extends State<MainScreen> {
                 },
               ),
               const SizedBox(height: 32.0),
-              StreamBuilder(
-                stream: _viewModel.isLoaded,
-                builder: (context, snapshot) => (snapshot.hasData &&
-                        snapshot.data != null &&
-                        snapshot.data == true)
-                    ? Expanded(
-                        child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 32.0,
-                            mainAxisSpacing: 32.0,
-                          ),
-                          itemCount: _viewModel.images.length,
-                          itemBuilder: (context, index) => ClipRRect(
-                            borderRadius: BorderRadius.circular(24.0),
-                            child: Image.network(
-                              _viewModel.images[index].toImageItem().previewUrl,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      )
-                    : const Expanded(
-                        child: Center(child: CircularProgressIndicator()),
-                      ),
+              Expanded(
+                child: StreamBuilder(
+                  stream: _viewModel.isLoaded,
+                  builder: (context, snapshot) => (snapshot.hasData &&
+                          snapshot.data != null &&
+                          snapshot.data == true)
+                      ? _viewModel.images.isNotEmpty
+                          ? _buildGridView()
+                          : const Center(child: Text('No results'))
+                      : const Center(child: CircularProgressIndicator()),
+                ),
               )
             ],
           ),
