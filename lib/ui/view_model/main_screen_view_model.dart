@@ -1,16 +1,16 @@
 import 'dart:async';
 
-import '../../model/data/image_repository.dart';
+import '../../model/data/images_repository.dart';
 import '../../model/image_item.dart';
 
 class MainScreenViewModel {
   final StreamController<bool> _controller;
-  final ImageRepository _repository;
+  final ImagesRepository _repository;
   List<ImageItem> _images;
 
   MainScreenViewModel()
       : _controller = StreamController(),
-        _repository = ImageRepository(),
+        _repository = ImagesRepository(),
         _images = [] {
     _initImages();
   }

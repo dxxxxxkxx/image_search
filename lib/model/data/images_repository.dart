@@ -3,10 +3,10 @@ import 'image_dto.dart';
 import 'image_mapper.dart';
 import 'images_api.dart';
 
-class ImageRepository {
+class ImagesRepository {
   final ImagesApi _imagesApi;
 
-  ImageRepository() : _imagesApi = ImagesApi();
+  ImagesRepository() : _imagesApi = ImagesApi();
 
   Future<List<ImageItem>> getImages({String query = ''}) async {
     final List<dynamic> jsonImages =
