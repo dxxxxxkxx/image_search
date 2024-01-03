@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../../data/image_repository.dart';
+import '../../model/data/image_repository.dart';
 import '../../model/image_item.dart';
 
 class MainScreenViewModel {

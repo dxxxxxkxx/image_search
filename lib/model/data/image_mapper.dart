@@ -1,4 +1,4 @@
-import '../model/image_item.dart';
+import '../image_item.dart';
 import 'image_dto.dart';
 
 extension ImageMapper on ImageDto {
