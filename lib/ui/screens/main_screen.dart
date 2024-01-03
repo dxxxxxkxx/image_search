@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../data/image_mapper.dart';
-import 'main_screen_view_model.dart';
-import 'search_bar_widget.dart';
+import '../../data/image_mapper.dart';
+import '../view_model/main_screen_view_model.dart';
+import '../widgets/search_bar_widget.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

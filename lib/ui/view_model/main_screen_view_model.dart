@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import '../data/image_dto.dart';
-import '../data/image_repository.dart';
+import '../../data/image_dto.dart';
+import '../../data/image_repository.dart';
 
 class MainScreenViewModel {
   final StreamController<bool> _controller;
