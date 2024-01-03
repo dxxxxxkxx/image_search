@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../data/image_dto.dart';
 import '../data/image_mapper.dart';
-import '../data/image_repository.dart';
+import 'main_screen_view_model.dart';
 import 'search_bar_widget.dart';
 
 class MainScreen extends StatefulWidget {
@@ -13,28 +12,9 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final ImageRepository _repository;
-  List<ImageDto> _images;
-  bool _isLoaded;
+  final MainScreenViewModel _viewModel;
 
-  _MainScreenState()
-      : _repository = ImageRepository(),
-        _images = [],
-        _isLoaded = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _initImages();
-  }
-
-  Future<void> _initImages() async {
-    _images = await _repository.getImages();
-
-    setState(() {
-      _isLoaded = true;
-    });
-  }
+  _MainScreenState() : _viewModel = MainScreenViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -46,40 +26,37 @@ class _MainScreenState extends State<MainScreen> {
             children: [
               SearchBarWidget(
                 search: (text) async {
-                  setState(() {
-                    _isLoaded = false;
-                  });
-
-                  _images = await _repository.getImages(query: text);
-
-                  setState(() {
-                    _isLoaded = true;
-                  });
+                  await _viewModel.searchImages(query: text);
                 },
               ),
               const SizedBox(height: 32.0),
-              _isLoaded
-                  ? Expanded(
-                      child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 32.0,
-                          mainAxisSpacing: 32.0,
-                        ),
-                        itemCount: _images.length,
-                        itemBuilder: (context, index) => ClipRRect(
-                          borderRadius: BorderRadius.circular(24.0),
-                          child: Image.network(
-                            _images[index].toImageItem().urlSrc,
-                            fit: BoxFit.cover,
+              StreamBuilder(
+                stream: _viewModel.isLoaded,
+                builder: (context, snapshot) => (snapshot.hasData &&
+                        snapshot.data != null &&
+                        snapshot.data == true)
+                    ? Expanded(
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 32.0,
+                            mainAxisSpacing: 32.0,
+                          ),
+                          itemCount: _viewModel.images.length,
+                          itemBuilder: (context, index) => ClipRRect(
+                            borderRadius: BorderRadius.circular(24.0),
+                            child: Image.network(
+                              _viewModel.images[index].toImageItem().urlSrc,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
+                      )
+                    : const Expanded(
+                        child: Center(child: CircularProgressIndicator()),
                       ),
-                    )
-                  : const Expanded(
-                      child: Center(child: CircularProgressIndicator()),
-                    )
+              )
             ],
           ),
         ),
