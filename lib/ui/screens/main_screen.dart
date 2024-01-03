@@ -47,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
                           itemBuilder: (context, index) => ClipRRect(
                             borderRadius: BorderRadius.circular(24.0),
                             child: Image.network(
-                              _viewModel.images[index].toImageItem().urlSrc,
+                              _viewModel.images[index].toImageItem().previewUrl,
                               fit: BoxFit.cover,
                             ),
                           ),
