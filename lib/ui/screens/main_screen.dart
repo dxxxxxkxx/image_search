@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../data/image_mapper.dart';
 import '../view_model/main_screen_view_model.dart';
 import '../widgets/search_bar_widget.dart';
+import 'image_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -23,11 +23,20 @@ class _MainScreenState extends State<MainScreen> {
           mainAxisSpacing: 32.0,
         ),
         itemCount: _viewModel.images.length,
-        itemBuilder: (context, index) => ClipRRect(
-          borderRadius: BorderRadius.circular(24.0),
-          child: Image.network(
-              _viewModel.images[index].toImageItem().previewUrl,
-              fit: BoxFit.cover),
+        itemBuilder: (context, index) => GestureDetector(
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) =>
+                    ImageScreen(imageUrl: _viewModel.images[index].imageUrl),
+              )),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24.0),
+            child: Image.network(
+              _viewModel.images[index].previewUrl,
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
       );
 

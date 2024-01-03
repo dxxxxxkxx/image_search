@@ -1,4 +1,6 @@
+import '../model/image_item.dart';
 import 'image_dto.dart';
+import 'image_mapper.dart';
 import 'images_api.dart';
 
 class ImageRepository {
@@ -6,9 +8,13 @@ class ImageRepository {
 
   ImageRepository() : _imagesApi = ImagesApi();
 
-  Future<List<ImageDto>> getImages({String query = ''}) async {
-    final List<dynamic> images = await _imagesApi.getImages(query: query);
+  Future<List<ImageItem>> getImages({String query = ''}) async {
+    final List<dynamic> jsonImages =
+        await _imagesApi.getJsonImages(query: query);
 
-    return images.map((image) => ImageDto.fromJson(image)).toList();
+    return jsonImages
+        .map((jsonImage) => ImageDto.fromJson(jsonImage).toImageItem())
+        .where((image) => image.imageUrl.isNotEmpty)
+        .toList();
   }
 }
