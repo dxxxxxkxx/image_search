@@ -14,7 +14,7 @@ class ImageItem {
 
   @override
   String toString() =>
-      'ImageItem{ previewUrl: $previewUrl, imageUrl: $imageUrl, tags: $tags}';
+      'ImageItem{ previewUrl: $previewUrl, imageUrl: $imageUrl, tags: $tags }';
 
   @override
   bool operator ==(Object other) =>

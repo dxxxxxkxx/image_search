@@ -37,7 +37,7 @@ class ImageDto {
 
   @override
   String toString() =>
-      'ImageDto{ previewUrl: $previewUrl, imageUrl: $imageUrl, webFormatUrl: $webFormatUrl, largeImageUrl: $largeImageUrl, fullHdUrl: $fullHdUrl, tags: $tags}';
+      'ImageDto{ previewUrl: $previewUrl, imageUrl: $imageUrl, webFormatUrl: $webFormatUrl, largeImageUrl: $largeImageUrl, fullHdUrl: $fullHdUrl, tags: $tags }';
 
   @override
   bool operator ==(Object other) =>
