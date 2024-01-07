@@ -1,8 +1,8 @@
-import '../image_item.dart';
+import '../image_model.dart';
 import 'image_dto.dart';
 
 extension ImageMapper on ImageDto {
-  ImageItem toImageItem() => ImageItem(
+  ImageModel toImageModel() => ImageModel(
         imageUrl: imageUrl ??
             webFormatUrl ??
             largeImageUrl ??

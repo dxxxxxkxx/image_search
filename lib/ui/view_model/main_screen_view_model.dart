@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import '../../model/data/images_repository.dart';
-import '../../model/image_item.dart';
+import '../../model/image_model.dart';
 
 class MainScreenViewModel {
   final StreamController<bool> _controller;
   final ImagesRepository _repository;
-  List<ImageItem> _images;
+  List<ImageModel> _images;
 
   MainScreenViewModel()
       : _controller = StreamController(),
@@ -17,7 +17,7 @@ class MainScreenViewModel {
 
   Stream<bool> get isLoaded => _controller.stream;
 
-  List<ImageItem> get images => _images;
+  List<ImageModel> get images => _images;
 
   Future<void> _initImages() async {
     _images = await _repository.getImages();

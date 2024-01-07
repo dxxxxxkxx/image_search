@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 @immutable
-class ImageItem {
+class ImageModel {
   final String previewUrl;
   final String imageUrl;
   final String tags;
 
-  const ImageItem({
+  const ImageModel({
     required this.previewUrl,
     required this.imageUrl,
     required this.tags,
@@ -19,7 +19,7 @@ class ImageItem {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is ImageItem &&
+      (other is ImageModel &&
           runtimeType == other.runtimeType &&
           previewUrl == other.previewUrl &&
           imageUrl == other.imageUrl &&
@@ -28,12 +28,12 @@ class ImageItem {
   @override
   int get hashCode => previewUrl.hashCode ^ imageUrl.hashCode ^ tags.hashCode;
 
-  ImageItem copyWith({
+  ImageModel copyWith({
     String? previewUrl,
     String? imageUrl,
     String? tags,
   }) =>
-      ImageItem(
+      ImageModel(
         previewUrl: previewUrl ?? this.previewUrl,
         imageUrl: imageUrl ?? this.imageUrl,
         tags: tags ?? this.tags,
